@@ -1,7 +1,7 @@
 {
-  "name": "angular-quickstart",
+  "name": "marverl-us",
   "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "description": "Angular app for starter to learn basic concepts",
   "scripts": {
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
@@ -24,7 +24,7 @@
     "watch:sass": "npm run build:sass && node-sass src/app/components/ -wo src/app/components/"
   },
   "keywords": [],
-  "author": "",
+  "author": "Satyam Bansal",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "~4.3.4",
@@ -64,5 +64,5 @@
     "tslint": "^3.15.1",
     "typescript": "~2.1.0"
   },
-  "repository": {}
+  "repository": {"github":"https://github.com/satyam22/marvel-us"}
 }
