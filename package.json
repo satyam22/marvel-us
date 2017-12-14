@@ -8,8 +8,9 @@
     "build:e2e": "tsc -p e2e/",
     "serve": "lite-server -c=bs-config.json",
     "serve:e2e": "lite-server -c=bs-config.e2e.json",
+    "serve-api":"nodemon server.js",
     "prestart": "npm run build",
-    "start": "concurrently \"npm run build:watch\" \"npm run serve\" \"npm run watch:sass\"",
+    "start": "concurrently \"npm run build:watch\" \"npm run serve\" \"npm run watch:sass\" \"npm run serve-api\" ",
     "pree2e": "npm run build:e2e",
     "e2e": "concurrently \"npm run serve:e2e\" \"npm run protractor\" --kill-others --success first",
     "preprotractor": "webdriver-manager update",
@@ -37,6 +38,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.7",
     "angular-in-memory-web-api": "~0.3.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
     "zone.js": "^0.8.4"
