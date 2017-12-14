@@ -6,11 +6,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent }  from './app.component';
 import {HeroesComponent} from './components/heroes/heroes.component';
 import {MessageComponent} from './components/messages/messages.component'
+import {ChatComponent} from './components/chatbox/chat-component/chat.component';
+import {NickNameComponent} from './components/chatbox/nickName-component/nickName.component';
 import {HeroService} from './components/heroes/hero.service';
 import {MessageService} from './components/messages/message.service';
+import {RouterModule} from '@angular/router';
+import {routes} from './app-routing.module';
 @NgModule({
-  imports:      [ HttpClientModule,BrowserModule,FormsModule,NgbModule.forRoot()],
-  declarations: [ AppComponent,HeroesComponent,MessageComponent],
+  imports:      [ HttpClientModule,BrowserModule,FormsModule,NgbModule.forRoot(),RouterModule.forRoot(routes)],
+  declarations: [ AppComponent,HeroesComponent,MessageComponent,ChatComponent,NickNameComponent],
   bootstrap:    [ AppComponent ],
   providers:[HeroService,MessageService]
 })

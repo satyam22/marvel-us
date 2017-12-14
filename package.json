@@ -8,7 +8,7 @@
     "build:e2e": "tsc -p e2e/",
     "serve": "lite-server -c=bs-config.json",
     "serve:e2e": "lite-server -c=bs-config.e2e.json",
-    "serve-api":"nodemon server.js",
+    "serve-api": "nodemon server.js",
     "prestart": "npm run build",
     "start": "concurrently \"npm run build:watch\" \"npm run serve\" \"npm run watch:sass\" \"npm run serve-api\" ",
     "pree2e": "npm run build:e2e",
@@ -39,7 +39,10 @@
     "angular-in-memory-web-api": "~0.3.0",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
+    "http": "0.0.0",
+    "mongodb": "^3.0.0-rc0",
     "rxjs": "5.0.1",
+    "socket.io": "^2.0.4",
     "systemjs": "0.19.40",
     "zone.js": "^0.8.4"
   },
@@ -57,6 +60,7 @@
     "lite-server": "^2.2.2",
     "lodash": "^4.16.4",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.12.7",
     "protractor": "~4.0.14",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
@@ -64,5 +68,7 @@
     "tslint": "^3.15.1",
     "typescript": "~2.1.0"
   },
-  "repository": {"github":"https://github.com/satyam22/marvel-us"}
+  "repository": {
+    "github": "https://github.com/satyam22/marvel-us"
+  }
 }

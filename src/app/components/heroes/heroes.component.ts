@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './heroes.interface';
 import { HeroService } from './hero.service';
+import {MessageService} from './../messages/message.service';
 import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-heroes',
@@ -12,7 +13,7 @@ export class HeroesComponent implements OnInit {
     comment: string;
     heroes: Hero[];
     result: string[] = [];
-    constructor(private heroService: HeroService, private http: HttpClient) {
+    constructor(private heroService: HeroService, private http: HttpClient,private messageService:MessageService) {
     }
     onSelect(hero: Hero): void {
         this.selectedHero = hero;
@@ -30,10 +31,12 @@ export class HeroesComponent implements OnInit {
         //     this.result = data['result'];
 
         // }
-        )
+    
 
     }
     getHeroes(): void {
-        this.heroService.getHero().subscribe(heroes => { this.heroes = heroes });
+        this.heroService.getHero().subscribe(heroes => { this.heroes = heroes 
+        this.messageService.add("Heroes fetched from api endpint");
+        });
     }
 }

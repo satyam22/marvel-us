@@ -8,12 +8,12 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class HeroService{
-    heroes:Hero[];
+    //heroes:Hero[];
     constructor(private messageService:MessageService,private http:HttpClient){
 
     }
     getHero():Observable<Hero[]>{
-        this.messageService.add("Hero Service fethed heroes...");
+       // this.messageService.add("Hero Service fethed heroes...");
        //return of(HEROES);
     return this.http.get<Hero[]>("http://localhost:3007/api/heroes");
     }
