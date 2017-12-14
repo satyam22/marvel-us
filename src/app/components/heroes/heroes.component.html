@@ -1,4 +1,7 @@
 <div class="container">
+    <div *ngIf="result.length">
+        <p *ngFor="let res of result">{{result}}</p>
+    </div>
     <div class="heroes-list">
         <h2>My Heroes</h2>
         <ul class="heroes">
