@@ -9,13 +9,15 @@ import {MessageComponent} from './components/messages/messages.component'
 import {ChatComponent} from './components/chatbox/chat-component/chat.component';
 import {NickNameComponent} from './components/chatbox/nickName-component/nickName.component';
 import {HeroService} from './components/heroes/hero.service';
+import {ChatService} from './components/chatbox/service/chatbox.service';
 import {MessageService} from './components/messages/message.service';
 import {RouterModule} from '@angular/router';
 import {routes} from './app-routing.module';
+
 @NgModule({
   imports:      [ HttpClientModule,BrowserModule,FormsModule,NgbModule.forRoot(),RouterModule.forRoot(routes)],
   declarations: [ AppComponent,HeroesComponent,MessageComponent,ChatComponent,NickNameComponent],
   bootstrap:    [ AppComponent ],
-  providers:[HeroService,MessageService]
+  providers:[HeroService,MessageService,ChatService]
 })
 export class AppModule { }

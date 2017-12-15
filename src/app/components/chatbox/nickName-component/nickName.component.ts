@@ -1,18 +1,12 @@
 import { Component } from "@angular/core";
-import { Router }    from "@angular/router";
-import * as globalVars from "../service/global";
-import {Inject} from "@angular/core";
-
-
-/// <reference path="../../typings/globals/jquery/index.d.ts/>
-
-
+import {ChatService} from "../service/chatbox.service";
 
 
 
 @Component({
     selector: "nick-name",
-    templateUrl: "./nickName.component.html"
+    templateUrl: "./nickName.component.html",
+    styleUrls:["./nickName.component.css"]
 })
 
 export class NickNameComponent {
