@@ -17,5 +17,16 @@ export class NickNameService{
     getRooms(){
         return this.http.get<string[]>("http://localhost:5000/api/rooms");
     }
+    AddNewRooms(){
+        let observable=new Observable((observer:any)=>{
+            this.socket.on('updateRoomsList',(data:any)=>{
+                observer.next(data);
+            });
+            return ()=>{
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
     
 }

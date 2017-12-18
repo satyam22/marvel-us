@@ -1,19 +1,16 @@
-<div id="note">
-	<h2>
-		Please Enter Your Name To Start Chatting...
-	</h2>
-</div>
-<div id="divID">
-	<input #nickname type="text" placeholder="Nickname" autocomplete="off" autofocus value="" required>
-	<button (click)="createNickName(nickname.value)">Submit</button>
-
+<div class="nickname-container">
+	<div class="create-room">
+		<h3 class="heading">Choose Character, Talk Passion</h3>
+		<div class="character-input">
+			<input #nickname type="text" placeholder="Enter your Character" value="" required>
+			<button (click)="createNickName(nickname.value)">Submit</button>
+		</div>
+	</div>
 	<div *ngIf="accessRoomsList">
-		<input #roomname type="text" placeholder="Create your own room" value="">
-		<button (click)="createRoom(roomname.value)">CREATE</button>
-			<div class="rooms-list">
-				<div *ngFor="let room of roomsList">
-					<button (click)="accessRoom(room)">{{room}}</button>
-				</div>
+		<div class="rooms-list">
+			<div *ngFor="let room of roomsList">
+				<button (click)="accessRoom(room)">{{room}}</button>
 			</div>
+		</div>
 	</div>
 </div>
