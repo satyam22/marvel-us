@@ -10,6 +10,7 @@ import {ChatComponent} from './components/chatbox/chat-component/chat.component'
 import {NickNameComponent} from './components/chatbox/nickName-component/nickName.component';
 import {HeroService} from './components/heroes/hero.service';
 import {ChatService} from './components/chatbox/service/chatbox.service';
+import {NickNameService} from './components/chatbox/service/nickName.service';
 import {MessageService} from './components/messages/message.service';
 import {RouterModule} from '@angular/router';
 import {routes} from './app-routing.module';
@@ -18,6 +19,6 @@ import {routes} from './app-routing.module';
   imports:      [ HttpClientModule,BrowserModule,FormsModule,NgbModule.forRoot(),RouterModule.forRoot(routes)],
   declarations: [ AppComponent,HeroesComponent,MessageComponent,ChatComponent,NickNameComponent],
   bootstrap:    [ AppComponent ],
-  providers:[HeroService,MessageService,ChatService]
+  providers:[HeroService,MessageService,ChatService,NickNameService]
 })
 export class AppModule { }

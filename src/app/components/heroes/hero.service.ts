@@ -15,7 +15,7 @@ export class HeroService{
     getHero():Observable<Hero[]>{
        // this.messageService.add("Hero Service fethed heroes...");
        //return of(HEROES);
-    return this.http.get<Hero[]>("http://localhost:3007/api/heroes");
+    return this.http.get<Hero[]>("http://localhost:5000/api/heroes");
     }
     }
 

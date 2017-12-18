@@ -1,8 +1,14 @@
-
-let Mongoose=require('mongoose');
-var UserSchema=mongoose.Schema({
-    name:{type:String,required:true},
-    character:{type:String}
-});
-let userModel=Mongoose.model('user',UserSchema);
-module.exports=userModel;
+let userModel=require('./../schema/user');
+let create=function(data,callback){
+    let newUser=new userModel(data);
+    newUser.save(callback);_
+}
+let findOne=function(data,callback){
+    userModel.findOne(data,callback);
+}
+let findById=function(id,callback){
+    userModel.findById(id,callback);
+}
+module.exports={
+    create,findOne,findById
+}

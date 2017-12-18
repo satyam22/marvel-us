@@ -12,11 +12,11 @@ export class ChatService{
     }
 sendMessage(message:string){
     console.log("========inside send message chat service=====");
-    this.socket.emit('add-message',message);
+    this.socket.emit('newMessage',message);
 }
 getMessages(){
     let observable=new Observable((observer:any)=>{
-        this.socket.on('new-message',(data:any)=>{
+        this.socket.on('addMessage',(data:any)=>{
             console.log("inside client new message");
             observer.next(data);
         });

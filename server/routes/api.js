@@ -1,5 +1,6 @@
 var express=require('express');
 var router=express.Router();
+var Room=require('./../models/room');
 var heroes=require('./../jsondata/heroes.json');
 var dummyData={
     "name":"satyam",
@@ -16,5 +17,12 @@ router.get("/test",function(req,res){
 });
 router.get('/heroes',function(req,res){
 res.json(heroes);
+});
+router.get('/rooms',function(req,res){
+    Room.find(function(err,rooms){
+        rooms=rooms.map(room=>room.title);
+        if(err) throw err;
+        res.json(rooms);
+    })
 });
 module.exports=router;
