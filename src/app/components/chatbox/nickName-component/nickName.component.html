@@ -1,5 +1,5 @@
 <div class="nickname-container">
-	<div class="create-room">
+	<div class="create-nickname">
 		<h3 class="heading">Choose Character, Talk Passion</h3>
 		<div class="character-input">
 			<input #nickname type="text" placeholder="Enter your Character" value="" required>
@@ -7,9 +7,13 @@
 		</div>
 	</div>
 	<div *ngIf="accessRoomsList">
+		<div class="character-input">
+			<input #roomname type="text" placeholder="Create your own room" value="">
+			<button (click)="createRoom(roomname.value)">Create Room</button>
+		</div>
 		<div class="rooms-list">
 			<div *ngFor="let room of roomsList">
-				<button (click)="accessRoom(room)">{{room}}</button>
+				<div (click)="accessRoom(room)">{{room}}</div>
 			</div>
 		</div>
 	</div>
