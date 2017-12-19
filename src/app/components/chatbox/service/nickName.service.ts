@@ -13,6 +13,7 @@ export class NickNameService{
     createRoom(roomName:string){
         console.log("===inside create room service");
         this.socket.emit('createRoom',roomName);
+        this.socket.emit('join user');
     }
     getRooms(){
         return this.http.get<string[]>("http://localhost:5000/api/rooms");

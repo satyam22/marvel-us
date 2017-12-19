@@ -31,12 +31,12 @@ app.use(function (req, res, next) {
 })
 app.use('/api', api);
 //io.set('transports',['websocket']);
-mongoose.connect(local_db_connection,{useMongoClient:true});
-mongoose.connection.on('error',function(error){
-    if(error)
-    throw error;
+mongoose.connect(local_db_connection, { useMongoClient: true });
+mongoose.connection.on('error', function (error) {
+    if (error)
+        throw error;
 })
-mongoose.Promise=global.Promise;
+mongoose.Promise = global.Promise;
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -47,12 +47,13 @@ app.get('*', function (req, res) {
 
 let ioEvents = function (io) {
     io.on('connection', function (socket) {
+
         console.log("inside IO");
         socket.on('createRoom', function (title) {
             console.log("inside create room");
             Room.findOne({ 'title': new RegExp('^' + title + '$', 'i') }, function (err, room) {
-                console.log("=========ERROR======"+err);
-                console.log("==========ROOM========="+room);
+                console.log("=========ERROR======" + err);
+                console.log("==========ROOM=========" + room);
                 if (err)
                     throw err;
                 if (room) {
@@ -68,27 +69,33 @@ let ioEvents = function (io) {
             });
         });
     });
-    io.of('/chatroom').on('connection', function (socket) {
-        socket.on('join', function (roomId) {
-            Room.findById(roomId, function (err, room) {
+    io.on('connection',function(socket){
+     //   console.log(socket);
+        socket.on('join user', function (data) {
+            console.log("inside join");
+            Room.findOne({ title: data.room }, function (err, room) {
                 if (err)
                     throw err;
+                    console.log("inside find one");
                 if (!room) {
                     socket.emit('updateUsersList', { error: "Room doesn't exist" })
                 }
                 else {
-                    Room.addUser(room, socket, function (err, newRoom) {
+                    Room.addUser(room, data.name, socket, function (err, newRoom) {
+                        console.log("====new room======");
+                        console.log(newRoom.id);
                         socket.join(newRoom.id);
-                        Room.getUsers(newRoom, socket, function (err, users, cuntUserInRoom) {
-                            socket.emit('Update Users List', users, true);
-                            if (cuntUserInRoom === 1) {
-                                socket.broadcast.to(newRoom.id).emit('updateUsersList', users[users.length - 1]);
-                            }
-                        });
+                        Room.getUsers(newRoom, data.name, function (err, users) {
+                            console.log("USERS iN ROOM");
+                            console.log(users);
+                            socket.emit('updateUsersList', users);
+                        });;
                     });
                 }
             });
         });
+
+
         socket.on('disconnect', function () {
             Room.removeUser(socket, function (err, room, userId, cuntUserInRoom) {
                 if (err)
@@ -99,25 +106,15 @@ let ioEvents = function (io) {
                 }
             });
         });
+
         socket.on('newMessage', function (roomId, message) {
-            socket.broadcast.to(roomId).emit('addMessage', message);
-            dataStorage(message);
+            console.log("====inside send message====");
+            socket.emit('addMessage', message);
+           // dataStorage(message);
         })
     })
 }
 
-// io.on('connection', (socket) => {
-//     console.log("User connected");
-//     socket.on('disconnect', () => {
-//         console.log("User disconnected");
-//     })
-//     socket.on('add-message', (message) => {
-//         console.log("========inside server add message=====" + message);
-//         io.emit('new-message', message);
-
-//     })
-
-// })
 ioEvents(io);
 function dataStorage(message) {
     console.log("=======message reached======" + message);

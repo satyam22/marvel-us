@@ -8,5 +8,5 @@ import {NickNameComponent} from './components/chatbox/nickName-component/nickNam
 export const routes:Routes=[
     {path:'',component:HeroesComponent},
     {path: 'rooms',component:NickNameComponent},
-    {path:'chatroom',component:ChatComponent}
+    {path:'chatroom/:roomName/:nickName',component:ChatComponent}
 ];

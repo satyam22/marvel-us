@@ -1,4 +1,6 @@
 let userModel=require('./../schema/user');
+
+
 let create=function(data,callback){
     let newUser=new userModel(data);
     newUser.save(callback);_

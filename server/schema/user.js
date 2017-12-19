@@ -1,6 +1,6 @@
 
 let Mongoose=require('mongoose');
-var UserSchema=mongoose.Schema({
+var UserSchema=Mongoose.Schema({
     name:{type:String,required:true},
     character:{type:String}
 });

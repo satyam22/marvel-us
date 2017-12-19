@@ -5,16 +5,16 @@
 			<input #nickname type="text" placeholder="Enter your Character" value="" required>
 			<button (click)="createNickName(nickname.value)">Submit</button>
 		</div>
+		<h3 class="char-msg" *ngIf="charMsg">{{charMsg}}</h3>
 	</div>
 	<div *ngIf="accessRoomsList">
-		<div class="character-input">
+		<div class="character-input room-input">
 			<input #roomname type="text" placeholder="Create your own room" value="">
 			<button (click)="createRoom(roomname.value)">Create Room</button>
 		</div>
+		<h3 class="char-msg room-msg">Join Existing rooms</h3>
 		<div class="rooms-list">
-			<div *ngFor="let room of roomsList">
-				<div (click)="accessRoom(room)">{{room}}</div>
-			</div>
+				<div *ngFor="let room of roomsList" class="room" (click)="accessRoom(room)">{{room}}</div>
 		</div>
 	</div>
 </div>

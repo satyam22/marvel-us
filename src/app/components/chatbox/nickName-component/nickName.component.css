@@ -1,69 +1,95 @@
+* {
+  box-sizing: border-box; }
 
-*{
-    box-sizing:border-box;
-}
-.nickname-container{
+.create-nickname {
+  text-align: center; }
 
- }
- .create-nickname{
-     text-align:center;
- }
- .create-nickname .heading{
-     margin-top: 70px;
-     color:rgb(194, 16, 54);
-     font-size: 35px;
-     font-family: "Roboto",sans-serif;
-     letter-spacing: 1px;
-     text-align:center;
-     font-weight:bold;
-     text-shadow:0px 2px 3px rgba(0, 0, 0, 0.5);
- }
-.character-input{
-    display:flex;
-    width:60%;
-    margin:auto;
-    margin-bottom:80px;
-}
-.character-input input{
+.create-nickname .heading {
+  margin-top: 70px;
+  color: #c21036;
+  font-size: 35px;
+  font-family: "Roboto",sans-serif;
+  letter-spacing: 1px;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5); }
 
-    width:600px;
-    height:35px;
-    border:none !important;
-    font-size:20px;
-    font-family: "Roboto",sans-serif;
-    letter-spacing: 1px;
-    margin-left:90px;
-    margin-right:0px;
+.char-msg {
+  font-family: "Roboto",sans-serif;
+  text-align: center;
+  font-size: 25px; 
+  letter-spacing: 1.5px;
+  color:darkred;
+  margin-left:100px;
 }
-.character-input button{
-    width:100px;
-    border:none;
-    margin-left:0px;
-    background: darkgreen;
-    color:white;
-    padding:0;
-    font-size:14px;
-    font-family: "Roboto",sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.char-msg.room-msg{
+    margin-left:40px;
+    letter-spacing: 4px;
+    margin-bottom:10px;
+    margin-top:60px;
 }
-.character-input button:hover{
-    color:#ddd;
+.character-input {
+  display: flex;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 60px; 
 }
-.rooms-list{
-    margin-top:10px;
-    display:flex;
-    width:90%;
-    margin:auto;
-    background:tan;
-    min-height:400px;
-    justify-content: space-around;
-    flex-wrap: wrap;
+
+.character-input input {
+  width: 600px;
+  height: 35px;
+  border: none !important;
+  font-size: 20px;
+  font-family: "Roboto",sans-serif;
+  letter-spacing: 1px;
+  margin-left: 90px;
+  margin-right: 0px; }
+
+.character-input button {
+  width: 100px;
+  border: none;
+  margin-left: 0px;
+  background: darkgreen;
+  color: white;
+  padding: 0;
+  font-size: 14px;
+  font-family: "Roboto",sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
+
+.character-input button:hover {
+  color: #ddd; 
 }
-.rooms-list div{
-background: white;
-height:40px;
-text-align:center;
-margin-left:30px;
-flex:1;
+.character-input.room-input button{
+width: 160px;
+}
+.rooms-list {
+  margin-top: 10px;
+  display: flex;
+  width: 90%;
+  margin: auto;
+  background:#999;
+  min-height: 400px;
+  flex-wrap: wrap; 
+  align-items: flex-start;
+  align-content: flex-start;
+  border-radius: 4px;
+}
+
+.rooms-list .room {
+  background:#333;
+  text-align: center;
+  padding:15px;
+  margin-left:15px;
+  margin-top:15px;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  font-family: "Roboto",sans-serif;
+  font-size:20px;
+  color:rgba(255, 255, 255,1.0);
+  font-weight:bold;
+  letter-spacing:.8px;
+}
+.rooms-list .room:hover{
+    color:rgba(255, 255, 255,0.8)
 }
