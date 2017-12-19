@@ -1,13 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var Room = require('./../models/room');
-var heroes = require('./../jsondata/heroes.json');
-var dummyData = {
+let express = require('express');let router = express.Router();
+let Room = require('./../models/room');
+let heroes = require('./../jsondata/heroes.json');
+
+let dummyData = {
     "name": "satyam",
     "city": "nagpur"
 };
 
-var test = { "result": ["test1", "test2"] };
+let test = { "result": ["test1", "test2"] };
+
 router.get('/', function (req, res) {
     res.send("Api server is running");
 })
@@ -48,11 +49,20 @@ router.get('/roomsdetails', function (req, res) {
     });
 });
 router.delete('/rooms/:roomName',function(req,res){
-    Room.deleteAll(req.params.roomName,function(err,data){
+    Room.deleteRoom(req.params.roomName,function(err,data){
         if(err)
         throw err;
         else
         res.send("successfully deleted all records");
+    });
+})
+router.delete('/rooms',function(req,res){
+    console.log("delete rooms api");
+    Room.deleteRoom(null,function(err,data){
+        if(err)
+        res.send(err);
+        else
+        res.send("All rooms deleted");
     });
 })
 module.exports = router;

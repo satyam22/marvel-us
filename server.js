@@ -1,5 +1,3 @@
-
-
 let express = require('express');
 let app = express();
 
@@ -21,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser({ urlEncoded: false }));
 
 var allowedOrigins = "http://localhost:3000";
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', allowedOrigins);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -28,16 +27,18 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers,Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers');
     res.setHeader('Cache-Control', 'no-cache');
     next();
-})
+});
+
 app.use('/api', api);
-//io.set('transports',['websocket']);
+app.use(express.static(path.join(__dirname, 'public')));
+
 mongoose.connect(local_db_connection, { useMongoClient: true });
 mongoose.connection.on('error', function (error) {
     if (error)
         throw error;
-})
+});
+
 mongoose.Promise = global.Promise;
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 
@@ -47,8 +48,7 @@ app.get('*', function (req, res) {
 
 let ioEvents = function (io) {
     io.on('connection', function (socket) {
-
-        console.log("inside IO");
+        //console.log("inside IO");
         socket.on('createRoom', function (title) {
             console.log("inside create room");
             Room.findOne({ 'title': new RegExp('^' + title + '$', 'i') }, function (err, room) {
@@ -64,19 +64,16 @@ let ioEvents = function (io) {
                         if (err) throw err;
                         socket.emit('updateRoomsList', newRoom);
                         socket.broadcast.emit('updateRoomsList', newRoom);
-                    })
+                    });
                 }
             });
         });
-    });
-    io.on('connection',function(socket){
-     //   console.log(socket);
         socket.on('join user', function (data) {
             console.log("inside join");
             Room.findOne({ title: data.room }, function (err, room) {
                 if (err)
                     throw err;
-                    console.log("inside find one");
+                console.log("inside find one");
                 if (!room) {
                     socket.emit('updateUsersList', { error: "Room doesn't exist" })
                 }
@@ -107,12 +104,18 @@ let ioEvents = function (io) {
             });
         });
 
-        socket.on('newMessage', function (roomId, message) {
-            console.log("====inside send message====");
-            socket.emit('addMessage', message);
-           // dataStorage(message);
+        socket.on('newMessage', function (roomName, message) {
+            console.log("====inside send message===="+roomName+"::message::"+message);
+            Room.findOne({title:roomName},function(err,room){
+                if(err)
+                throw err;
+                console.log("inside find");
+                io.in(room.id).emit('addMessage', message);                
+            })
+            // dataStorage(message);
         })
-    })
+
+    });
 }
 
 ioEvents(io);
@@ -132,6 +135,8 @@ function dataStorage(message) {
         console.log(data);
     })
 }
+
+
 let port = 5000;
 server.listen(port, function () {
     console.log("app is listening at port: " + port);
