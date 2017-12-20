@@ -161,30 +161,58 @@ img {
   left: 93%; }
 
 .chat-message {
-  padding: 30px; }
-
+  padding: 30px; 
+}
+.chat-message .message-area{
+  position:relative;
+  background:white;
+  border-radius: 5px;
+}
 .chat-message textarea {
-  width: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width:100%;
+  position:relative;
   border: none;
   padding: 10px 20px;
   font: 14px/22px "Lato",Arial,sans-serif;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  resize: none; }
+  resize: none; 
+  outline:none;
+}
 
-.chat-message .fa-file-o, .chat-message .fa-file-image-o {
-  font-size: 16px;
+.chat-message .fa{
+  position: absolute;
+  font-size: 19px;
   color: #92959e;
-  cursor: pointer; }
+  cursor: pointer; 
+  bottom:6px;
+  right:3px;
+}
+.chat-message .fa-smile-o{
+  right:61px;
+}
+.chat-message .fa-smile-o:hover{
+color:green;
+}
+
+.chat-message .fa-file-o{
+  right:85px;
+}
+.chat-message .fa-file-o:hover{
+color:green;
+}
 
 .chat-message button {
-  float: right;
+  position:absolute;
+  bottom:6px;
+  right:3px;
   color: #94c2ed;
   font-size: 16px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  background: #F2F5F8; }
+  background: white;
+}
 
 .chat-message button:hover {
   color: #75b1e8; }

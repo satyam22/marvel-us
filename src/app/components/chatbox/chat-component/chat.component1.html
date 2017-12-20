@@ -16,7 +16,7 @@
                 </div>
             </li> -->
             <li class="clearfix" *ngFor="let user of currentUsers">
-                <img src="http://via.placeholder.com/350x150" alt="avatar" >
+                <img src="http://via.placeholder.com/350x150" alt="avatar">
                 <div class="about">
                     <div class="name">
                         {{user}}
@@ -37,18 +37,18 @@
             <i class="fa fa-star"></i>
         </div>
         <div class="chat-history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-            <ul  >
-                <li *ngFor="let message of messages" class="clearfix" >
-                        <div class="message-data align-right">
-                            <span class="message-data-time">{{message.timestamp}}</span>
-                            <span class="message-data-name">{{message.sender}}</span>&nbsp;&nbsp;
-                            <i class="fa fa-circle me"></i>
-                        </div>
-                        <div class="message other-message float-right">
-                            {{message.text}}
-                        </div>
-                    </li>
-                    <!-- <li class="clearfix">
+            <ul>
+                <li *ngFor="let message of messages" class="clearfix">
+                    <div class="message-data align-right">
+                        <span class="message-data-time">{{message.timestamp}}</span>
+                        <span class="message-data-name">{{message.sender}}</span>&nbsp;&nbsp;
+                        <i class="fa fa-circle me"></i>
+                    </div>
+                    <div class="message other-message float-right">
+                        {{message.text}}
+                    </div>
+                </li>
+                <!-- <li class="clearfix">
                         <div class="message-data">
                             <span class="message-data-name">
                                 <i class="fa fa-circle online"> &nbsp;&nbsp;</i>Satyam
@@ -63,11 +63,14 @@
             </ul>
         </div>
         <div class="chat-message clearfix">
-            <textarea [(ngModel)]="message" id="message" placeholder="Type your message and press enter to send" rows="3" (keydown)="keydownFunc($event)">
-                </textarea>
-            <i class="fa fa-file-o"></i>&nbsp;&nbsp;&nbsp;
-            <i class="fa fa-file-image-o"></i>
-            <button (click)="sendMessage()">SEND</button>
+            <div class="message-area">
+                <textarea [(ngModel)]="message" id="message" placeholder="Type your message and press enter to send" rows="3" (keydown)="keydownFunc($event)">
+                        </textarea>
+                <button (click)="sendMessage()">SEND</button>
+                <i class="fa fa-file-o"></i>&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-smile-o"></i>
+
+            </div>
         </div>
     </div>
 </div>
