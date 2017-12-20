@@ -41,10 +41,13 @@ export class ChatService {
     });
     return observable;
     }
-    userTyping(username:string,room:string,isTyping:boolean){
-        this.socket.emit('user is typing',username,room,isTyping);
+    userIsTyping(username:string,room:string){
+        this.socket.emit('user is typing',username,room);
     }
-    getUserTyping(){
+    userStoppedTyping(username:string,room:string){
+        this.socket.emit('user stopped typing',username,room);
+    }
+    userTypingSignal(){
         let observable=new Observable((observer:any)=>{
             this.socket.on('user is typing',(data:any)=>{
                 console.log("user is typing:::"+data);
@@ -56,4 +59,16 @@ export class ChatService {
         });
         return observable;
     }
+    userStoppedTypingSignal(){
+        let observable=new Observable((observer:any)=>{
+            this.socket.on('user stopped typing',()=>{
+                observer.next();
+            });
+            return ()=>{
+                this.socket.disconnect();
+            };
+        });
+        return observable;
+    }
+
 }

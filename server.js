@@ -118,13 +118,20 @@ let ioEvents = function(io) {
         io.in(room.id).emit("addMessage", message);
       });
     });
-    socket.on("user is typing", function(userName, roomName,isTyping) {
+    socket.on("user is typing", function(userName, roomName) {
       //console.log("====inside send message====" + roomName + "::message::" + message);
       Room.findOne({ title: roomName }, function(err, room) {
         if (err) throw err;
         console.log("inside user typing");
-        console.log("is Typing::"+isTyping)
-        io.to(room.id).emit("user is typing",{userName,isTyping});
+        io.to(room.id).emit("user is typing",userName);
+      });
+    });
+    socket.on("user stopped typing", function(userName, roomName) {
+      //console.log("====inside send message====" + roomName + "::message::" + message);
+      Room.findOne({ title: roomName }, function(err, room) {
+        if (err) throw err;
+        console.log("inside user typing");
+        io.to(room.id).emit("user stopped typing");
       });
     });
   });

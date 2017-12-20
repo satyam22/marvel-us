@@ -32,11 +32,11 @@ export class ChatComponent {
     let timeout;
     let timeoutFunction=()=>{
       typing=false;
-      this.chatService.userTyping(this.nickName,this.roomName,false);
+      this.chatService.userStoppedTyping(this.nickName,this.roomName);
     }
     if (event.keyCode == 13) this.sendMessage();
     else{
-      this.chatService.userTyping(this.nickName,this.roomName,true);      
+      this.chatService.userIsTyping(this.nickName,this.roomName);      
       if(!typing){
         typing=true;
         timeout=setTimeout(timeoutFunction,3000);
@@ -84,17 +84,16 @@ export class ChatComponent {
       });
       console.log("Room Name param " + this.roomName);
     });
-    this.chatService.getUserTyping().subscribe((data:any) => {
+    this.chatService.userTypingSignal().subscribe((username:string) => {
        console.log("is typing");
-       console.log(data);
-       if(data['isTyping']){
+       console.log(username);
          this.isUserTyping=true;
-         this.userTypeName=data['userName'];
-       }
-       else{
-         this.isUserTyping=false;
-       }
+         this.userTypeName=username;
     });
+    this.chatService.userStoppedTypingSignal().subscribe(()=>{
+      console.log("user stopped typeing");
+      this.isUserTyping=false;
+    })
   }
 
   ngOnDestroy() {

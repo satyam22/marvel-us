@@ -86,13 +86,15 @@ img {
   border-bottom: 2px solid white; }
 
 .chat .chat-header .img {
-  background-image: url("/images/profile.jpg");
+  background-image: url("http://localhost:5000/images/batman.jpg");
   float: left;
   width: 60px;
   height: 60px;
   background-size: cover;
   border: 2px solid #00a2ff;
-  border-radius: 50%; }
+  border-radius: 50%;
+  cursor: pointer;
+}
 
 .chat .chat-header .chat-about {
   float: left;
@@ -114,12 +116,20 @@ img {
   margin-top: 12px; }
 
 .chat-history {
+  position:relative;
   padding: 30px 30px 20px;
   height: 440px;
   border-bottom: 2px solid white;
   overflow:auto;
 }
-
+.chat-history .typing-note{
+  position: fixed;
+  bottom:100px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color:#666;
+}
 .chat-history .message-data {
   margin-bottom: 15px; }
 
