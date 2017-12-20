@@ -10,9 +10,9 @@ export class ChatService {
         this.url = "http://localhost:5000";
         this.socket = io(this.url);
     }
-    sendMessage(roomId:string,message: string) {
+    sendMessage(roomId:string,msgObj:any) {
         console.log("========inside send message chat service=====");
-        this.socket.emit('newMessage',roomId,message);
+        this.socket.emit('newMessage',roomId,msgObj);
     }
     joinUser(roomName: string, nickName: string) {
         console.log("join user service");

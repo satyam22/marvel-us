@@ -38,17 +38,17 @@
         </div>
         <div class="chat-history">
             <ul>
-                <!-- <li class="clearfix">
+                <li *ngFor="let message of messages" class="clearfix">
                         <div class="message-data align-right">
-                            <span class="message-data-time">10:10 Am, Today</span>
-                            <span class="message-data-name">Gopal</span>&nbsp;&nbsp;
+                            <span class="message-data-time">{{message.timestamp}}</span>
+                            <span class="message-data-name">{{message.sender}}</span>&nbsp;&nbsp;
                             <i class="fa fa-circle me"></i>
                         </div>
                         <div class="message other-message float-right">
-                            Hi Satyam, How you doing?
+                            {{message.text}}
                         </div>
                     </li>
-                    <li class="clearfix">
+                    <!-- <li class="clearfix">
                         <div class="message-data">
                             <span class="message-data-name">
                                 <i class="fa fa-circle online"> &nbsp;&nbsp;</i>Satyam
@@ -59,7 +59,7 @@
                             Hey Gopal,i'm doing awesome.you tell me something about you.
                         </div>
                     </li> -->
-                <li *ngFor="let message of messages">{{message}}</li>
+                <!-- <li *ngFor="let message of messages">{{message}}</li> -->
             </ul>
         </div>
         <div class="chat-message clearfix">

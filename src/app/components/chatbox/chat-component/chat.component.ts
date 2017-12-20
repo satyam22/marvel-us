@@ -14,10 +14,11 @@ import {ActivatedRoute} from '@angular/router';
 
 export class ChatComponent {
 
-  messages:string[]=[];
+  messages:any[]=[];
   connection:any;
   sub:any;
   message:string;
+  msgObj:any={};
   roomName:string;
   nickName:string;
   currentUsers:string[]
@@ -26,12 +27,17 @@ export class ChatComponent {
   }
   sendMessage(){
     console.log("========inside send message=====");
-    this.chatService.sendMessage(this.roomName,this.message);
+    this.msgObj.text=this.message;
+    this.msgObj.sender=this.nickName;
+    this.msgObj.timestamp=new Date();
+    this.chatService.sendMessage(this.roomName,this.msgObj);
     this.message='';
   }
   ngOnInit(){
-    this.connection=this.chatService.getMessages().subscribe((message:string)=>{
-      this.messages.push(message);
+    this.connection=this.chatService.getMessages().subscribe((message:any)=>{
+      console.log("=========received message======");
+      console.log(message);
+    this.messages.push(message);
     });
     this.sub=this.route.params.subscribe(params=>{
       this.roomName=params['roomName'];

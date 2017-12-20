@@ -1,12 +1,11 @@
 let express = require('express');
 let app = express();
-
 let server = require('http').Server(app);
 let io = require('socket.io').listen(server);
-
 let mongoose = require('mongoose');
 let path = require('path');
 let bodyParser = require('body-parser');
+let logger = require('./logger');
 
 let db;
 let remote_db_connection = "mongodb://root:satyam123@ds141786.mlab.com:41786/marvelus";
@@ -14,6 +13,13 @@ let local_db_connection = "mongodb://localhost:27017/marvelus";
 var api = require('./server/routes/api');
 var Room = require('./server/models/room');
 
+mongoose.connect(local_db_connection, { useMongoClient: true });
+mongoose.connection.on('error', function (error) {
+    if (error)
+        throw error;
+});
+
+mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
 app.use(bodyParser({ urlEncoded: false }));
@@ -32,13 +38,6 @@ app.use(function (req, res, next) {
 app.use('/api', api);
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(local_db_connection, { useMongoClient: true });
-mongoose.connection.on('error', function (error) {
-    if (error)
-        throw error;
-});
-
-mongoose.Promise = global.Promise;
 
 
 
@@ -47,14 +46,14 @@ app.get('*', function (req, res) {
 })
 
 let ioEvents = function (io) {
+    logger.info("inside function ioevents");
     io.on('connection', function (socket) {
-        //console.log("inside IO");
+        logger.info("socket io connection event");
         socket.on('createRoom', function (title) {
-            console.log("inside create room");
+            logger.info("socket io create room event");
             Room.findOne({ 'title': new RegExp('^' + title + '$', 'i') }, function (err, room) {
-                console.log("=========ERROR======" + err);
-                console.log("==========ROOM=========" + room);
                 if (err)
+                logger.info("error occured in create room",err);
                     throw err;
                 if (room) {
                     socket.emit('updateRoomsList', { error: 'Room title already exists' });
@@ -69,22 +68,23 @@ let ioEvents = function (io) {
             });
         });
         socket.on('join user', function (data) {
-            console.log("inside join");
+            logger.info("socket io join user event");
             Room.findOne({ title: data.room }, function (err, room) {
                 if (err)
                     throw err;
-                console.log("inside find one");
                 if (!room) {
                     socket.emit('updateUsersList', { error: "Room doesn't exist" })
                 }
                 else {
                     Room.addUser(room, data.name, socket, function (err, newRoom) {
-                        console.log("====new room======");
-                        console.log(newRoom.id);
+                        if(err){
+                            logger.info("error occured while adding users");
+                            logger.info(err.toString());
+                            throw err;
+                        }
                         socket.join(newRoom.id);
                         Room.getUsers(newRoom, data.name, function (err, users) {
-                            console.log("USERS iN ROOM");
-                            console.log(users);
+                            logger.info("users in room"+users);
                             socket.emit('updateUsersList', users);
                         });;
                     });
@@ -105,12 +105,12 @@ let ioEvents = function (io) {
         });
 
         socket.on('newMessage', function (roomName, message) {
-            console.log("====inside send message===="+roomName+"::message::"+message);
-            Room.findOne({title:roomName},function(err,room){
-                if(err)
-                throw err;
+            console.log("====inside send message====" + roomName + "::message::" + message);
+            Room.findOne({ title: roomName }, function (err, room) {
+                if (err)
+                    throw err;
                 console.log("inside find");
-                io.in(room.id).emit('addMessage', message);                
+                io.in(room.id).emit('addMessage',message);
             })
             // dataStorage(message);
         })
