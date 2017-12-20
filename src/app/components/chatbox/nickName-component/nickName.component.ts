@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ChatService } from "../service/chatbox.service";
 import { NickNameService } from '../service/nickName.service';
 import {Router} from '@angular/router';
+import {MessageService} from './../../messages/message.service';
 
 @Component({
     selector: "nick-name",
@@ -15,7 +16,7 @@ export class NickNameComponent {
     accessRoomsList: Boolean;
     errorMsg: string;
     charMsg: string;
-    constructor(private nickNameService: NickNameService,private router:Router) {
+    constructor(private nickNameService: NickNameService,private router:Router,private messageService:MessageService) {
         this.nickName = "";
         this.roomsList = [];
         this.accessRoomsList = false;
@@ -48,7 +49,10 @@ export class NickNameComponent {
             console.log("inside new Rooms");
             console.log(data);
             if (data["error"]) {
+                console.log("error occured");
+                console.log(data["error"]);
                 this.errorMsg = data["error"];
+                this.messageService.add(data["error"]);
             }
             else {
                 this.roomsList.push(data["title"]);
@@ -58,4 +62,3 @@ export class NickNameComponent {
 
 }
 
-}

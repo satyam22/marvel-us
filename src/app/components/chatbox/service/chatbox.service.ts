@@ -31,9 +31,6 @@ export class ChatService {
         return observable;
     }
     getUsers(){
-    //     let url=this.url+"/rooms/"+roomName+"/"+currentUser;
-    //     console.log("URL:: "+url);
-    // return this.http.get<string[]>(url);
     let observable=new Observable((observer:any)=>{
         this.socket.on('updateUsersList',(data:any)=>{
             observer.next(data);
@@ -43,5 +40,20 @@ export class ChatService {
         };
     });
     return observable;
+    }
+    userTyping(username:string,room:string,isTyping:boolean){
+        this.socket.emit('user is typing',username,room,isTyping);
+    }
+    getUserTyping(){
+        let observable=new Observable((observer:any)=>{
+            this.socket.on('user is typing',(data:any)=>{
+                console.log("user is typing:::"+data);
+                observer.next(data);
+            });
+            return ()=>{
+                this.socket.disconnect();
+            };
+        });
+        return observable;
     }
 }

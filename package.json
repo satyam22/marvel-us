@@ -65,7 +65,7 @@
     "lite-server": "^2.2.2",
     "lodash": "^4.16.4",
     "node-sass": "^4.7.2",
-    "nodemon": "^1.12.7",
+    "nodemon": "^1.14.0",
     "protractor": "~4.0.14",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
