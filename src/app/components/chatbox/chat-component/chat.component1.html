@@ -16,7 +16,7 @@
                 </div>
             </li> -->
             <li class="clearfix" *ngFor="let user of currentUsers">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar">
+                <img src="http://via.placeholder.com/350x150" alt="avatar" >
                 <div class="about">
                     <div class="name">
                         {{user}}
@@ -36,9 +36,9 @@
             </div>
             <i class="fa fa-star"></i>
         </div>
-        <div class="chat-history">
-            <ul>
-                <li *ngFor="let message of messages" class="clearfix">
+        <div class="chat-history" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+            <ul  >
+                <li *ngFor="let message of messages" class="clearfix" >
                         <div class="message-data align-right">
                             <span class="message-data-time">{{message.timestamp}}</span>
                             <span class="message-data-name">{{message.sender}}</span>&nbsp;&nbsp;
@@ -63,7 +63,7 @@
             </ul>
         </div>
         <div class="chat-message clearfix">
-            <textarea [(ngModel)]="message" id="message" placeholder="Type your message" rows="3">
+            <textarea [(ngModel)]="message" id="message" placeholder="Type your message and press enter to send" rows="3" (keydown)="keydownFunc($event)">
                 </textarea>
             <i class="fa fa-file-o"></i>&nbsp;&nbsp;&nbsp;
             <i class="fa fa-file-image-o"></i>

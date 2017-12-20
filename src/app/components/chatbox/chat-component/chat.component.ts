@@ -22,15 +22,26 @@ export class ChatComponent {
   roomName:string;
   nickName:string;
   currentUsers:string[]
+
   constructor(private chatService:ChatService,private route:ActivatedRoute){
 
   }
+  keydownFunc(event:any){
+    console.log("inside key down func");
+    if(event.keyCode==13)
+    this.sendMessage();
+  }
   sendMessage(){
+    let date=new Date();
+    let timestamp=(date.getHours()>12?date.getHours()-12:date.getHours())+":"+date.getMinutes()+" "+(date.getHours()>12?"am":"pm")
     console.log("========inside send message=====");
-    this.msgObj.text=this.message;
-    this.msgObj.sender=this.nickName;
-    this.msgObj.timestamp=new Date();
-    this.chatService.sendMessage(this.roomName,this.msgObj);
+    console.log(this.message);
+    if(this.message.trim().length!=0){
+      this.msgObj.text=this.message;
+      this.msgObj.sender=this.nickName;
+      this.msgObj.timestamp=timestamp;
+      this.chatService.sendMessage(this.roomName,this.msgObj);  
+    }
     this.message='';
   }
   ngOnInit(){
@@ -53,4 +64,5 @@ export class ChatComponent {
   ngOnDestroy(){
     this.connection.unsubscribe();
   }
+
 }
